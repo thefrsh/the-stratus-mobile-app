@@ -7,7 +7,7 @@
     android:background="@drawable/login_background"
     android:filter="false"
     android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar"
-    tools:context=".activity.LoginActivity" >
+    tools:context=".activity.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -23,7 +23,6 @@
         app:srcCompat="@drawable/stratus_logo_white" />
 
     <com.google.android.material.textfield.TextInputLayout
-        app:startIconDrawable="@drawable/baseline_person_18"
         android:id="@+id/login_edittext_username"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="270dp"
@@ -35,7 +34,8 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.123">
+        app:layout_constraintVertical_bias="0.123"
+        app:startIconDrawable="@drawable/baseline_person_18">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -45,7 +45,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:startIconDrawable="@drawable/baseline_lock_18"
         android:id="@+id/login_edittext_password"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="270dp"
@@ -57,7 +56,8 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_edittext_username"
-        app:layout_constraintVertical_bias="0.066">
+        app:layout_constraintVertical_bias="0.066"
+        app:startIconDrawable="@drawable/baseline_lock_18">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
