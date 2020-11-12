@@ -4,56 +4,52 @@ import android.view.View
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import io.github.thefrsh.stratus.BR
-import io.github.thefrsh.stratus.R
-import io.github.thefrsh.stratus.model.UserCredentials
+import io.github.thefrsh.stratus.model.LoginCredentials
 import io.github.thefrsh.stratus.rx.SnackbarMessage
-import io.github.thefrsh.stratus.util.ResourceProvider
+import io.github.thefrsh.stratus.troubleshooting.exception.LoginCredentialsNotValidException
+import io.github.thefrsh.stratus.troubleshooting.validator.LoginCredentialsValidator
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
-class LoginViewModelImpl @Inject constructor(private val resourceProvider: ResourceProvider)
+class LoginViewModelImpl @Inject constructor(private val loginCredentialsValidator: LoginCredentialsValidator)
     : BaseObservable(), LoginViewModel
 {
-    private val userCredentials = UserCredentials()
+    private val loginCredentials = LoginCredentials()
     private val snackbarEvent: PublishSubject<SnackbarMessage> = PublishSubject.create()
 
     @Bindable
     override fun getUsername(): String
     {
-        return userCredentials.username
+        return loginCredentials.username
     }
 
     @Bindable
     override fun getPassword(): String
     {
-        return userCredentials.password
+        return loginCredentials.password
     }
 
     override fun setPassword(password: String)
     {
-        this.userCredentials.password = password
+        this.loginCredentials.password = password
         notifyPropertyChanged(BR.viewModel)
     }
 
     override fun setUsername(username: String)
     {
-        this.userCredentials.username = username
+        this.loginCredentials.username = username
         notifyPropertyChanged(BR.viewModel)
     }
 
     override fun onLoginButtonClick(v: View)
     {
-        if (userCredentials.username.isEmpty() || userCredentials.password.isEmpty())
+        try
         {
-            snackbarEvent.onNext(SnackbarMessage("There are empty fields"))
+            loginCredentialsValidator.validate(loginCredentials)
         }
-        else if (userCredentials.username.length < resourceProvider.getInteger(R.integer.minimum_login_length))
+        catch (e: LoginCredentialsNotValidException)
         {
-            snackbarEvent.onNext(SnackbarMessage("Login must be at least 3 characters long"))
-        }
-        else if (userCredentials.password.length < resourceProvider.getInteger(R.integer.minimum_password_length))
-        {
-            snackbarEvent.onNext(SnackbarMessage("Password must be at least 6 characters long"))
+            snackbarEvent.onNext(SnackbarMessage(e.message!!))
         }
     }
 

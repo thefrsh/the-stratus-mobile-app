@@ -17,11 +17,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity()
 {
-    @Inject
-    lateinit var viewModel: LoginViewModel
-
     private lateinit var binding: ActivityLoginBinding
     private lateinit var snackBarEvents: Disposable
+
+    @Inject
+    lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?)
     {

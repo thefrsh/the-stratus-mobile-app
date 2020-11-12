@@ -1,6 +1,6 @@
 package io.github.thefrsh.stratus.model
 
-class UserCredentials
+class LoginCredentials
 {
     var username: String = ""
     var password: String = ""
