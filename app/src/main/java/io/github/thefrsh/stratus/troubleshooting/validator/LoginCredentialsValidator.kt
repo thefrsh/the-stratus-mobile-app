@@ -1,31 +1,30 @@
 package io.github.thefrsh.stratus.troubleshooting.validator
 
 import io.github.thefrsh.stratus.R
-import io.github.thefrsh.stratus.model.LoginCredentials
 import io.github.thefrsh.stratus.troubleshooting.exception.LoginCredentialsNotValidException
-import io.github.thefrsh.stratus.util.ResourceProvider
+import io.github.thefrsh.stratus.service.ResourceService
 import javax.inject.Inject
 
-class LoginCredentialsValidator @Inject constructor(private val resourceProvider: ResourceProvider)
+class LoginCredentialsValidator @Inject constructor(private val resourceService: ResourceService)
 {
-    fun validate(loginCredentials: LoginCredentials)
+    fun validate(username: String, password: String)
     {
-        val minimumUsernameLength = resourceProvider.getInteger(R.integer.minimum_username_length)
-        val minimumPasswordLength = resourceProvider.getInteger(R.integer.minimum_password_length)
+        val usernameMinLength = resourceService.getInteger(R.integer.minimum_username_length)
+        val passwordMinLength = resourceService.getInteger(R.integer.minimum_password_length)
 
-        if (loginCredentials.username.isEmpty() || loginCredentials.password.isEmpty())
+        if (username.isEmpty() || password.isEmpty())
         {
             throw LoginCredentialsNotValidException("Please fill in the required fields")
         }
-        else if (loginCredentials.username.length < minimumUsernameLength)
+        else if (username.length < usernameMinLength)
         {
             throw LoginCredentialsNotValidException("Username must be at least " +
-                    "$minimumUsernameLength characters long")
+                    "$usernameMinLength characters long")
         }
-        else if (loginCredentials.password.length < minimumPasswordLength)
+        else if (password.length < passwordMinLength)
         {
             throw LoginCredentialsNotValidException("Password must be at least " +
-                    "$minimumPasswordLength characters long")
+                    "$passwordMinLength characters long")
         }
     }
 }

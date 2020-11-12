@@ -1,9 +1,9 @@
-package io.github.thefrsh.stratus.util
+package io.github.thefrsh.stratus.service
 
 import android.content.Context
 import javax.inject.Inject
 
-class ResourceProvider @Inject constructor(private val context: Context)
+class ResourceService @Inject constructor(private val context: Context)
 {
     fun getColor(id: Int): Int
     {
