@@ -14,10 +14,10 @@ class RegisterViewModel
 @Inject constructor(private val registerCredentialsValidator: RegisterCredentialsValidator)
     : BaseObservable()
 {
-    val usernameFieldMessage = ObservableField<String>("")
-    val emailFieldMessage = ObservableField<String>("")
-    val passwordFieldMessage = ObservableField<String>("")
-    val confirmPasswordFieldMessage = ObservableField<String>("")
+    val usernameFieldMessage = ObservableField<String>("Username must not be empty")
+    val emailFieldMessage = ObservableField<String>("Email must not be empty")
+    val passwordFieldMessage = ObservableField<String>("Password must not be empty")
+    val confirmPasswordFieldMessage = ObservableField<String>("Please make sure your passwords match")
 
     val snackbarEvents: PublishSubject<SnackbarMessage> = PublishSubject.create()
 
@@ -62,7 +62,7 @@ class RegisterViewModel
     {
         if (!isFormCorrect())
         {
-            snackbarEvents.onNext(SnackbarMessage("Please correct highlighted errors"))
+            snackbarEvents.onNext(SnackbarMessage("The form contains errors"))
         }
     }
 

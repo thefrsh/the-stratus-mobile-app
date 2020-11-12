@@ -42,7 +42,12 @@ class RegisterCredentialsValidator @Inject constructor(resourceService: Resource
     fun validatePassword(password: String): String
     {
         var message = ""
-        if(password.length < passwordMinLength)
+
+        if (password.isEmpty())
+        {
+            message = "Password must not be empty"
+        }
+        else if(password.length < passwordMinLength)
         {
             message = "Password must be at least $passwordMinLength " +
                     "characters long"
@@ -67,7 +72,7 @@ class RegisterCredentialsValidator @Inject constructor(resourceService: Resource
         var message = ""
         if (confirmPassword != password)
         {
-            message = "Passwords do not match"
+            message = "Please make sure your passwords match"
         }
         return message
     }
