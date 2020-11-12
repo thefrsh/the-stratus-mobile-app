@@ -1,157 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login_register_background"
-    tools:context=".activity.RegisterActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/register_imageview_signup"
-        android:layout_width="155dp"
-        android:layout_height="50dp"
-        android:contentDescription="@string/register_imageview_desc"
-        android:src="@drawable/signup_logo_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.115" />
+    <!-- Variable definitions for data binding -->
+    <data>
+        <variable
+            name="viewModel"
+            type="io.github.thefrsh.stratus.viewmodel.RegisterViewModel" />
+    </data>
 
-    <Button
-        android:id="@+id/register_button_done"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:backgroundTint="@color/crimson"
-        android:text="@string/register_button_done_text"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_edittext_confirm_password"
-        app:layout_constraintVertical_bias="0.105" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_register_background"
+        tools:context=".activity.RegisterActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/register_edittext_username"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        app:boxStrokeColor="@color/text_input_stroke_color"
-        app:hintTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_imageview_signup"
-        app:layout_constraintVertical_bias="0.080"
-        app:startIconDrawable="@drawable/baseline_person_18">
+        <ImageView
+            android:id="@+id/register_imageview_signup"
+            android:layout_width="155dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/register_imageview_desc"
+            android:src="@drawable/signup_logo_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.115" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-            android:hint="@string/register_edittext_username_hint"
-            android:maxLength="20"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/register_button_done"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/crimson"
+            android:text="@string/register_button_done_text"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:onClick="@{viewModel::onDoneButtonClick}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_edittext_confirm_password"
+            app:layout_constraintVertical_bias="0.105" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/register_edittext_confirm_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        app:boxStrokeColor="@color/text_input_stroke_color"
-        app:hintTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_edittext_password"
-        app:layout_constraintVertical_bias="0.085"
-        app:startIconDrawable="@drawable/baseline_lock_18">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_edittext_username"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            app:boxStrokeColor="@color/text_input_stroke_color"
+            app:hintTextColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_imageview_signup"
+            app:layout_constraintVertical_bias="0.080"
+            app:startIconDrawable="@drawable/baseline_person_18">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                android:hint="@string/register_edittext_username_hint"
+                android:text="@={viewModel.username}"
+                android:registerValidation="@{viewModel.usernameFieldMessage}"
+                android:maxLength="20"
+                android:textSize="18sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_edittext_confirm_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            app:boxStrokeColor="@color/text_input_stroke_color"
+            app:hintTextColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_edittext_password"
+            app:layout_constraintVertical_bias="0.085"
+            app:startIconDrawable="@drawable/baseline_lock_18">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^
                                 &amp;*()+=-,.?/\[]{}"
-            android:hint="@string/register_edittext_confirm_password_hint"
-            android:inputType="textPassword"
-            android:maxLength="20"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/register_edittext_confirm_password_hint"
+                android:inputType="textPassword"
+                android:text="@={viewModel.confirmPassword}"
+                android:registerValidation="@{viewModel.confirmPasswordFieldMessage}"
+                android:maxLength="20"
+                android:textSize="18sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/register_edittext_email"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        app:boxStrokeColor="@color/text_input_stroke_color"
-        app:hintTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_edittext_username"
-        app:layout_constraintVertical_bias="0.055"
-        app:startIconDrawable="@drawable/baseline_email_18">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_edittext_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            app:boxStrokeColor="@color/text_input_stroke_color"
+            app:hintTextColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_edittext_username"
+            app:layout_constraintVertical_bias="0.055"
+            app:startIconDrawable="@drawable/baseline_email_18">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^
                                 &amp;*()+=-,.?/\[]{}"
-            android:hint="@string/register_edittext_email_hint"
-            android:inputType="textEmailAddress"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/register_edittext_email_hint"
+                android:inputType="textEmailAddress"
+                android:text="@={viewModel.email}"
+                android:registerValidation="@{viewModel.emailFieldMessage}"
+                android:textSize="18sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/register_edittext_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        app:boxStrokeColor="@color/text_input_stroke_color"
-        app:hintTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_edittext_email"
-        app:layout_constraintVertical_bias="0.070"
-        app:startIconDrawable="@drawable/baseline_lock_18">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_edittext_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            app:boxStrokeColor="@color/text_input_stroke_color"
+            app:hintTextColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_edittext_email"
+            app:layout_constraintVertical_bias="0.070"
+            app:startIconDrawable="@drawable/baseline_lock_18">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^
                                 &amp;*()+=-,.?/\[]{}"
-            android:hint="@string/register_edittext_password_hint"
-            android:inputType="textPassword"
-            android:maxLength="20"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/register_edittext_password_hint"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:text="@={viewModel.password}"
+                android:registerValidation="@{viewModel.passwordFieldMessage}"
+                android:textSize="18sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:text="@string/register_button_go_back_text"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        app:backgroundTint="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_button_done"
-        app:layout_constraintVertical_bias="0.120"
-        app:strokeColor="@color/white" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/register_button_go_back"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:text="@string/register_button_go_back_text"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:backgroundTint="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_button_done"
+            app:layout_constraintVertical_bias="0.120"
+            app:strokeColor="@color/white" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

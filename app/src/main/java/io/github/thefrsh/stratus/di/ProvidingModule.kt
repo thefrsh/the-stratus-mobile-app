@@ -6,15 +6,15 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.github.thefrsh.stratus.util.ResourceProvider
+import io.github.thefrsh.stratus.service.ResourceService
 
 @Module
 @InstallIn(ApplicationComponent::class)
 class ProvidingModule
 {
     @Provides
-    fun resourceProvider(@ApplicationContext context: Context): ResourceProvider
+    fun resourceProvider(@ApplicationContext context: Context): ResourceService
     {
-        return ResourceProvider(context)
+        return ResourceService(context)
     }
 }
