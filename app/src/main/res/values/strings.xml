@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Stratus</string>
+    <string name="app_preferences">AppPreferences</string>
     <string name="snackbar_dismiss_action">Dismiss</string>
 
     <!--  Login  -->
