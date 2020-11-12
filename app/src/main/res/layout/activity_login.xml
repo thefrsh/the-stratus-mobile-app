@@ -1,96 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login_background"
-    android:filter="false"
-    android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar"
-    tools:context=".activity.LoginActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="154dp"
-        android:layout_height="43dp"
-        android:contentDescription="@string/login_imageview_desc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292"
-        app:srcCompat="@drawable/stratus_logo_white" />
+    <!-- Variable definitions for data binding -->
+    <data>
+        <variable
+            name="viewModel"
+            type="io.github.thefrsh.stratus.viewmodel.LoginViewModel"/>
+    </data>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/login_edittext_username"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        app:boxStrokeColor="@color/text_input_stroke_color"
-        app:hintTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.123"
-        app:startIconDrawable="@drawable/baseline_person_18">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_background"
+        android:filter="false"
+        android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar"
+        tools:context=".activity.LoginActivity">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/login_imageview_logo"
+            android:layout_width="155dp"
+            android:layout_height="45dp"
+            android:contentDescription="@string/login_imageview_desc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.290"
+            app:srcCompat="@drawable/stratus_logo_white" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_edittext_username"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            app:boxStrokeColor="@color/text_input_stroke_color"
+            app:hintTextColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_imageview_logo"
+            app:layout_constraintVertical_bias="0.125"
+            app:startIconDrawable="@drawable/baseline_person_18">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                android:maxLength="20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_edittext_username_hint"
+                android:text="@={viewModel.username}"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_edittext_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            app:boxStrokeColor="@color/text_input_stroke_color"
+            app:hintTextColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_edittext_username"
+            app:layout_constraintVertical_bias="0.065"
+            app:startIconDrawable="@drawable/baseline_lock_18">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^
+                                &amp;*()+=-,.?/\[]{}"
+                android:hint="@string/login_edittext_password_hint"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:text="@={viewModel.password}"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/login_button_login"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/crimson"
+            android:text="@string/login_button_text"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:onClick="@{viewModel::onLoginButtonClick}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_edittext_password"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <TextView
+            android:id="@+id/login_textview_signup"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/login_edittext_username_hint"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/login_edittext_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        app:boxStrokeColor="@color/text_input_stroke_color"
-        app:hintTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_edittext_username"
-        app:layout_constraintVertical_bias="0.066"
-        app:startIconDrawable="@drawable/baseline_lock_18">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_edittext_password_hint"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/login_button_login"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:backgroundTint="@color/white"
-        android:text="@string/login_button_text"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_edittext_password"
-        app:layout_constraintVertical_bias="0.09" />
-
-    <TextView
-        android:id="@+id/login_textview_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_textview_text"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button_login"
-        app:layout_constraintVertical_bias="0.121" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="@string/login_textview_text"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_button_login"
+            app:layout_constraintVertical_bias="0.120" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

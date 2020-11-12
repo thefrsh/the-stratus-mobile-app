@@ -5,4 +5,5 @@
     <string name="login_imageview_desc">StratusLogo</string>
     <string name="login_button_text">Login</string>
     <string name="login_textview_text">Don\'t have an account? <b>Sign up now!</b></string>
+    <string name="snackbar_dismiss_action">Dismiss</string>
 </resources>
