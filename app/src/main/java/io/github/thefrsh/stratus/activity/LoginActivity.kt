@@ -1,5 +1,6 @@
 package io.github.thefrsh.stratus.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -15,7 +16,8 @@ import javax.inject.Inject
 class LoginActivity : AppCompatActivity()
 {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var snackBarEvents: Disposable
+    private lateinit var snackbarEvents: Disposable
+    private lateinit var intentEvents: Disposable
 
     @Inject
     lateinit var viewModel: LoginViewModel
@@ -30,8 +32,18 @@ class LoginActivity : AppCompatActivity()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.viewModel = viewModel
 
-        snackBarEvents = viewModel.snackbarEvents.subscribe { event ->
+        subscribeEvents()
+    }
+
+    private fun subscribeEvents()
+    {
+        snackbarEvents = viewModel.snackbarEvents.subscribe { event ->
             snackbarService.showSnackbar(this, event.message)
+        }
+
+        intentEvents = viewModel.intentEvents.subscribe { event ->
+            startActivity(Intent(this, event.activityClass))
+            finish()
         }
     }
 }

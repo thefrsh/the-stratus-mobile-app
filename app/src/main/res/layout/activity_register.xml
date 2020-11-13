@@ -162,6 +162,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
+            android:onClick="@{viewModel::onGoBackButtonClick}"
             android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton"
             app:backgroundTint="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
