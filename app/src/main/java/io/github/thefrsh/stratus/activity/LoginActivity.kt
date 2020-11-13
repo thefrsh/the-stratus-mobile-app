@@ -1,6 +1,5 @@
 package io.github.thefrsh.stratus.activity
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -33,6 +32,11 @@ class LoginActivity : AppCompatActivity()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.viewModel = viewModel
 
+        subscribeEvents()
+    }
+
+    private fun subscribeEvents()
+    {
         snackbarEvents = viewModel.snackbarEvents.subscribe { event ->
             snackbarService.showSnackbar(this, event.message)
         }

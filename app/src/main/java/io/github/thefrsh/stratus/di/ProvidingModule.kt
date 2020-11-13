@@ -10,8 +10,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.github.thefrsh.stratus.R
 import io.github.thefrsh.stratus.service.ResourceService
 import io.github.thefrsh.stratus.service.web.LoginWebService
+import io.github.thefrsh.stratus.service.web.RegisterWebService
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
@@ -35,9 +35,8 @@ class ProvidingModule
     fun retrofit(): Retrofit
     {
         return Retrofit.Builder()
-            .baseUrl("http://localhost:8080")
+            .baseUrl("http://10.0.2.2:8080/")
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .build()
     }
 
@@ -45,5 +44,11 @@ class ProvidingModule
     fun loginWebService(retrofit: Retrofit): LoginWebService
     {
         return retrofit.create(LoginWebService::class.java)
+    }
+
+    @Provides
+    fun registerWebService(retrofit: Retrofit): RegisterWebService
+    {
+        return retrofit.create(RegisterWebService::class.java)
     }
 }

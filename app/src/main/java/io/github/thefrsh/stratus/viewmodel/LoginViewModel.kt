@@ -7,15 +7,19 @@ import androidx.databinding.Bindable
 import com.google.gson.Gson
 import io.github.thefrsh.stratus.BR
 import io.github.thefrsh.stratus.activity.DashboardActivity
+import io.github.thefrsh.stratus.activity.RegisterActivity
 import io.github.thefrsh.stratus.rx.IntentMessage
 import io.github.thefrsh.stratus.rx.SnackbarMessage
 import io.github.thefrsh.stratus.service.web.LoginWebService
 import io.github.thefrsh.stratus.transfer.ApiError
 import io.github.thefrsh.stratus.transfer.LoginTransfer
+import io.github.thefrsh.stratus.transfer.TokenTransfer
 import io.github.thefrsh.stratus.troubleshooting.exception.LoginCredentialsNotValidException
 import io.github.thefrsh.stratus.troubleshooting.validator.LoginCredentialsValidator
 import io.reactivex.subjects.PublishSubject
-import java.net.HttpURLConnection
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 class LoginViewModel
@@ -50,30 +54,47 @@ class LoginViewModel
 
             val loginTransfer = LoginTransfer(username, password)
 
-            val disposable = loginWebService.login(loginTransfer).subscribe { response ->
-                if (response.isSuccessful)
+            val disposable = loginWebService.login(loginTransfer).enqueue(object : Callback<TokenTransfer>
+            {
+                override fun onFailure(call: Call<TokenTransfer>, t: Throwable)
                 {
-                    val tokenTransfer = response.body()
+                    snackbarEvents.onNext(SnackbarMessage("Unable to connect. Please check your" +
+                            "internet connection"))
+                }
 
-                    if (tokenTransfer != null)
+                override fun onResponse(call: Call<TokenTransfer>, response: Response<TokenTransfer>)
+                {
+                    if (response.isSuccessful)
                     {
-                        sharedPreferences.edit()
-                            .putString("token", tokenTransfer.token)
-                            .apply()
+                        val tokenTransfer = response.body()
 
-                        intentEvents.onNext(IntentMessage(DashboardActivity::class.java))
+                        if (tokenTransfer != null)
+                        {
+                            sharedPreferences.edit()
+                                .putString("token", tokenTransfer.token)
+                                .apply()
+
+                            intentEvents.onNext(IntentMessage(DashboardActivity::class.java))
+                        }
+                    }
+                    else
+                    {
+                        val apiError = Gson().fromJson(response.errorBody()?.string(),
+                            ApiError::class.java)
+
+                        snackbarEvents.onNext(SnackbarMessage(apiError.message))
                     }
                 }
-                else if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED)
-                {
-                    val apiError = Gson().fromJson(response.body().toString(), ApiError::class.java)
-                    snackbarEvents.onNext(SnackbarMessage(apiError.message))
-                }
-            }
+            })
         }
         catch (e: LoginCredentialsNotValidException)
         {
             snackbarEvents.onNext(SnackbarMessage(e.message!!))
         }
+    }
+
+    fun onSignUpTextClick(v: View)
+    {
+        intentEvents.onNext(IntentMessage(RegisterActivity::class.java))
     }
 }
