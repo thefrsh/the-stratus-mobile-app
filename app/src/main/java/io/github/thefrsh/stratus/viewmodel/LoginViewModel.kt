@@ -1,6 +1,7 @@
 package io.github.thefrsh.stratus.viewmodel
 
 import android.content.SharedPreferences
+import android.util.Log
 import android.view.View
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
@@ -59,7 +60,7 @@ class LoginViewModel
                 override fun onFailure(call: Call<TokenTransfer>, t: Throwable)
                 {
                     snackbarEvents.onNext(SnackbarMessage("Unable to connect. Please check your" +
-                            "internet connection"))
+                            " internet connection"))
                 }
 
                 override fun onResponse(call: Call<TokenTransfer>, response: Response<TokenTransfer>)
@@ -71,6 +72,7 @@ class LoginViewModel
                         if (tokenTransfer != null)
                         {
                             sharedPreferences.edit()
+                                .putLong("id", tokenTransfer.id)
                                 .putString("token", tokenTransfer.token)
                                 .apply()
 
