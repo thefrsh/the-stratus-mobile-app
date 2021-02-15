@@ -59,7 +59,7 @@ class LoginViewModel
                 override fun onFailure(call: Call<TokenTransfer>, t: Throwable)
                 {
                     snackbarEvents.onNext(SnackbarMessage("Unable to connect. Please check your" +
-                            "internet connection"))
+                            " internet connection"))
                 }
 
                 override fun onResponse(call: Call<TokenTransfer>, response: Response<TokenTransfer>)
@@ -71,6 +71,7 @@ class LoginViewModel
                         if (tokenTransfer != null)
                         {
                             sharedPreferences.edit()
+                                .putLong("id", tokenTransfer.id)
                                 .putString("token", tokenTransfer.token)
                                 .apply()
 
