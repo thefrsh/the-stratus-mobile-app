@@ -16,39 +16,34 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(ApplicationComponent::class)
-class ProvidingModule
-{
+class ProvidingModule {
+
     @Provides
-    fun resourceProvider(@ApplicationContext context: Context): ResourceService
-    {
+    fun resourceProvider(@ApplicationContext context: Context): ResourceService {
         return ResourceService(context)
     }
 
     @Provides
-    fun sharedPreferences(@ApplicationContext context: Context): SharedPreferences
-    {
+    fun sharedPreferences(@ApplicationContext context: Context): SharedPreferences {
         val preferencesKey = context.getString(R.string.app_preferences)
         return context.getSharedPreferences(preferencesKey, Context.MODE_PRIVATE)
     }
 
     @Provides
-    fun retrofit(): Retrofit
-    {
+    fun retrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+                .baseUrl("http://10.0.2.2:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
     }
 
     @Provides
-    fun loginWebService(retrofit: Retrofit): LoginWebService
-    {
+    fun loginWebService(retrofit: Retrofit): LoginWebService {
         return retrofit.create(LoginWebService::class.java)
     }
 
     @Provides
-    fun registerWebService(retrofit: Retrofit): RegisterWebService
-    {
+    fun registerWebService(retrofit: Retrofit): RegisterWebService {
         return retrofit.create(RegisterWebService::class.java)
     }
 }

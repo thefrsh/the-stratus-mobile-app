@@ -22,8 +22,8 @@ import javax.inject.Inject
 
 class RegisterViewModel
 @Inject constructor(private val registerCredentialsValidator: RegisterCredentialsValidator,
-                    private val registerWebService: RegisterWebService) : BaseObservable()
-{
+                    private val registerWebService: RegisterWebService) : BaseObservable() {
+
     val usernameFieldMessage = ObservableField<String>("Username must not be empty")
     val emailFieldMessage = ObservableField<String>("Email must not be empty")
     val passwordFieldMessage = ObservableField<String>("Password must not be empty")
@@ -35,8 +35,7 @@ class RegisterViewModel
 
     @Bindable
     var username = ""
-        set(value)
-        {
+        set(value) {
             field = value
             notifyPropertyChanged(BR.username)
             usernameFieldMessage.set(registerCredentialsValidator.validateUsername(value))
@@ -44,8 +43,7 @@ class RegisterViewModel
 
     @Bindable
     var email = ""
-        set(value)
-        {
+        set(value) {
             field = value
             notifyPropertyChanged(BR.email)
             emailFieldMessage.set(registerCredentialsValidator.validateEmail(value))
@@ -53,8 +51,7 @@ class RegisterViewModel
 
     @Bindable
     var password = ""
-        set(value)
-        {
+        set(value) {
             field = value
             notifyPropertyChanged(BR.password)
             passwordFieldMessage.set(registerCredentialsValidator.validatePassword(value))
@@ -62,43 +59,34 @@ class RegisterViewModel
 
     @Bindable
     var confirmPassword = ""
-        set(value)
-        {
+        set(value) {
             field = value
             notifyPropertyChanged(BR.confirmPassword)
             confirmPasswordFieldMessage.set(
-                registerCredentialsValidator.validateConfirmPassword(value, password))
+                    registerCredentialsValidator.validateConfirmPassword(value, password))
         }
 
-    fun onDoneButtonClick(v: View)
-    {
-        if (!isFormCorrect())
-        {
+    fun onDoneButtonClick(v: View) {
+        if (!isFormCorrect()) {
             snackbarEvents.onNext(SnackbarMessage("The form contains errors"))
         }
-        else
-        {
+        else {
             val registerTransfer = RegisterTransfer(username, password, email)
 
-            registerWebService.register(registerTransfer).enqueue(object : Callback<UserTransfer>
-            {
-                override fun onFailure(call: Call<UserTransfer>, t: Throwable)
-                {
+            registerWebService.register(registerTransfer).enqueue(object : Callback<UserTransfer> {
+                override fun onFailure(call: Call<UserTransfer>, t: Throwable) {
                     snackbarEvents.onNext(
-                        SnackbarMessage("Unable to connect. Please check your internet connection"))
+                            SnackbarMessage("Unable to connect. Please check your internet connection"))
                 }
 
-                override fun onResponse(call: Call<UserTransfer>, response: Response<UserTransfer>)
-                {
-                    if (response.isSuccessful)
-                    {
+                override fun onResponse(call: Call<UserTransfer>, response: Response<UserTransfer>) {
+                    if (response.isSuccessful) {
                         snackbarEvents.onNext(SnackbarMessage(
-                            "Account has been successfully created! You can go back and login"))
+                                "Account has been successfully created! You can go back and login"))
                     }
-                    else
-                    {
+                    else {
                         val apiError = Gson().fromJson(
-                            response.errorBody()?.string(), ApiError::class.java)
+                                response.errorBody()?.string(), ApiError::class.java)
 
                         snackbarEvents.onNext(SnackbarMessage(apiError.message))
                     }
@@ -107,15 +95,13 @@ class RegisterViewModel
         }
     }
 
-    fun onGoBackButtonClick(v: View)
-    {
+    fun onGoBackButtonClick(v: View) {
         intentEvents.onNext(IntentMessage(LoginActivity::class.java))
     }
 
-    private fun isFormCorrect(): Boolean
-    {
+    private fun isFormCorrect(): Boolean {
         return usernameFieldMessage.get()?.isEmpty()!! && emailFieldMessage.get()?.isEmpty()!! &&
                 passwordFieldMessage.get()?.isEmpty()!! && confirmPasswordFieldMessage.get()
-            ?.isEmpty()!!
+                ?.isEmpty()!!
     }
 }

@@ -13,8 +13,8 @@ import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity()
-{
+class LoginActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
     private lateinit var snackbarEvents: Disposable
     private lateinit var intentEvents: Disposable
@@ -25,8 +25,7 @@ class LoginActivity : AppCompatActivity()
     @Inject
     lateinit var snackbarService: SnackbarService
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
@@ -35,8 +34,7 @@ class LoginActivity : AppCompatActivity()
         subscribeEvents()
     }
 
-    private fun subscribeEvents()
-    {
+    private fun subscribeEvents() {
         snackbarEvents = viewModel.snackbarEvents.subscribe { event ->
             snackbarService.showSnackbar(this, event.message)
         }
