@@ -4,6 +4,7 @@ import android.content.Context
 import javax.inject.Inject
 
 class ResourceService @Inject constructor(private val context: Context) {
+
     fun getColor(id: Int): Int {
         return context.getColor(id)
     }

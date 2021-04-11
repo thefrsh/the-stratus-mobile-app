@@ -1,3 +1,6 @@
 package io.github.thefrsh.stratus.transfer
 
-class LoginTransfer(var username: String, var password: String)
+class LoginTransfer(
+    val username: String,
+    val password: String
+)

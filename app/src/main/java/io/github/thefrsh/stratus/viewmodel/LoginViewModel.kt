@@ -16,16 +16,18 @@ import io.github.thefrsh.stratus.transfer.LoginTransfer
 import io.github.thefrsh.stratus.transfer.TokenTransfer
 import io.github.thefrsh.stratus.troubleshooting.exception.LoginCredentialsNotValidException
 import io.github.thefrsh.stratus.troubleshooting.validator.LoginCredentialsValidator
+import io.github.thefrsh.stratus.util.Const
 import io.reactivex.subjects.PublishSubject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class LoginViewModel
-@Inject constructor(private val loginCredentialsValidator: LoginCredentialsValidator,
-                    private val sharedPreferences: SharedPreferences,
-                    private val loginWebService: LoginWebService) : BaseObservable() {
+class LoginViewModel @Inject constructor(
+    private val loginCredentialsValidator: LoginCredentialsValidator,
+    private val sharedPreferences: SharedPreferences,
+    private val loginWebService: LoginWebService
+) : BaseObservable() {
 
     val snackbarEvents: PublishSubject<SnackbarMessage> = PublishSubject.create()
     val intentEvents: PublishSubject<IntentMessage> = PublishSubject.create()
@@ -54,7 +56,8 @@ class LoginViewModel
 
             val loginTransfer = LoginTransfer(username, password)
 
-            val disposable = loginWebService.login(loginTransfer).enqueue(object : Callback<TokenTransfer> {
+            val disposable = loginWebService.login(loginTransfer).enqueue(
+                object : Callback<TokenTransfer> {
 
                 override fun onFailure(call: Call<TokenTransfer>, t: Throwable) {
 
@@ -71,8 +74,9 @@ class LoginViewModel
                         if (tokenTransfer != null) {
 
                             sharedPreferences.edit()
-                                    .putLong("id", tokenTransfer.id)
-                                    .putString("token", tokenTransfer.token)
+                                    .putLong(Const.SP_ID_KEY, tokenTransfer.id)
+                                    .putString(Const.SP_TOKEN_KEY, tokenTransfer.token)
+                                    .putString(Const.USERNAME, loginTransfer.username)
                                     .apply()
 
                             intentEvents.onNext(IntentMessage(DashboardActivity::class.java))

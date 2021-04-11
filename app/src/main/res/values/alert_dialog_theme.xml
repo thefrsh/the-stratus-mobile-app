@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:background">@color/grey_darken_4</item>
+        <item name="android:colorPrimary">@color/crimson</item>
+        <item name="android:colorAccent">@color/crimson</item>
+    </style>
+</resources>

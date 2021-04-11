@@ -27,8 +27,7 @@ class RegisterViewModel
     val usernameFieldMessage = ObservableField<String>("Username must not be empty")
     val emailFieldMessage = ObservableField<String>("Email must not be empty")
     val passwordFieldMessage = ObservableField<String>("Password must not be empty")
-    val confirmPasswordFieldMessage = ObservableField<String>("Please make sure your passwords " +
-            "match")
+    val confirmPasswordFieldMessage = ObservableField<String>("Please make sure your passwords match")
 
     val snackbarEvents: PublishSubject<SnackbarMessage> = PublishSubject.create()
     val intentEvents: PublishSubject<IntentMessage> = PublishSubject.create()
@@ -67,6 +66,7 @@ class RegisterViewModel
         }
 
     fun onDoneButtonClick(v: View) {
+
         if (!isFormCorrect()) {
             snackbarEvents.onNext(SnackbarMessage("The form contains errors"))
         }
@@ -74,20 +74,20 @@ class RegisterViewModel
             val registerTransfer = RegisterTransfer(username, password, email)
 
             registerWebService.register(registerTransfer).enqueue(object : Callback<UserTransfer> {
+
                 override fun onFailure(call: Call<UserTransfer>, t: Throwable) {
-                    snackbarEvents.onNext(
-                            SnackbarMessage("Unable to connect. Please check your internet connection"))
+                    snackbarEvents.onNext(SnackbarMessage("Unable to connect. Please check your internet connection"))
                 }
 
                 override fun onResponse(call: Call<UserTransfer>, response: Response<UserTransfer>) {
+
                     if (response.isSuccessful) {
                         snackbarEvents.onNext(SnackbarMessage(
-                                "Account has been successfully created! You can go back and login"))
+                                "Account created! You can go back and login"))
                     }
                     else {
-                        val apiError = Gson().fromJson(
-                                response.errorBody()?.string(), ApiError::class.java)
 
+                        val apiError = Gson().fromJson(response.errorBody()?.string(), ApiError::class.java)
                         snackbarEvents.onNext(SnackbarMessage(apiError.message))
                     }
                 }
@@ -101,7 +101,6 @@ class RegisterViewModel
 
     private fun isFormCorrect(): Boolean {
         return usernameFieldMessage.get()?.isEmpty()!! && emailFieldMessage.get()?.isEmpty()!! &&
-                passwordFieldMessage.get()?.isEmpty()!! && confirmPasswordFieldMessage.get()
-                ?.isEmpty()!!
+                passwordFieldMessage.get()?.isEmpty()!! && confirmPasswordFieldMessage.get()?.isEmpty()!!
     }
 }

@@ -2,8 +2,10 @@ package io.github.thefrsh.stratus.transfer
 
 import java.util.*
 
-class ApiError(var timestamp: Date,
-               var status: Int,
-               var error: String,
-               var message: String,
-               var path: String)
+class ApiError(
+    val timestamp: Date,
+    val status: Int,
+    val error: String,
+    val message: String,
+    val path: String
+)

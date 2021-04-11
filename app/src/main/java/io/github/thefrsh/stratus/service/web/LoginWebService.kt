@@ -7,6 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface LoginWebService {
+
     @POST("/login")
     fun login(@Body loginTransfer: LoginTransfer): Call<TokenTransfer>
 }

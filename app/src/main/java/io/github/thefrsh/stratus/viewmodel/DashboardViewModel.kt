@@ -1,17 +1,17 @@
 package io.github.thefrsh.stratus.viewmodel
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import io.github.thefrsh.stratus.R
+import io.github.thefrsh.stratus.activity.DashboardActivity
 import io.github.thefrsh.stratus.databinding.ActivityDashboardBinding
-import io.github.thefrsh.stratus.fragment.ScreenSlidePagerAdapter
+import io.github.thefrsh.stratus.fragment.adapter.DashboardPagerAdapter
 import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor() {
 
     private lateinit var binding: ActivityDashboardBinding
 
-    fun setContentView(activity: AppCompatActivity, layoutId: Int) {
+    fun setContentView(activity: DashboardActivity, layoutId: Int) {
 
         this.binding = DataBindingUtil.setContentView(activity, layoutId)
 
@@ -19,12 +19,12 @@ class DashboardViewModel @Inject constructor() {
         integrateViewPagerWithBottomNavigation()
     }
 
-    private fun setPagerAdapter(activity: AppCompatActivity) {
+    private fun setPagerAdapter(activity: DashboardActivity) {
 
         val viewPager = binding.dashboardViewPager
 
         viewPager.isUserInputEnabled = false
-        viewPager.adapter = ScreenSlidePagerAdapter(activity)
+        viewPager.adapter = DashboardPagerAdapter(activity)
     }
 
     private fun integrateViewPagerWithBottomNavigation() {

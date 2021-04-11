@@ -1,5 +1,7 @@
 package io.github.thefrsh.stratus.transfer
 
-class RegisterTransfer(var username: String,
-                       var password: String,
-                       var email: String)
+class RegisterTransfer(
+    val username: String,
+    val password: String,
+    val email: String
+)

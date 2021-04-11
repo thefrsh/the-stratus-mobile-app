@@ -11,20 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Stratus">
+        <activity android:name=".activity.ChatActivity"></activity>
         <activity
             android:name=".activity.DashboardActivity"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.MaterialComponents.NoActionBar"
+            android:navigationBarColor="@android:color/black"></activity>
         <activity
             android:name=".activity.RegisterActivity"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.MaterialComponents.NoActionBar"></activity>
         <activity
             android:name=".activity.LoginActivity"
+            android:navigationBarColor="@android:color/black"
             android:theme="@style/Theme.MaterialComponents.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

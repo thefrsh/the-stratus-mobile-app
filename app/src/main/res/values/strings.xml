@@ -18,9 +18,14 @@
     <string name="register_edittext_email_hint">Email</string>
     <string name="register_button_done_text">Done</string>
     <string name="register_button_go_back_text">Go back</string>
-    
+
     <!-- Dashboard -->
     <string name="dashboard_bottomnav_contacts">Contacts</string>
     <string name="dashboard_bottomnav_search_user">Search</string>
     <string name="dashboard_bottomnav_notifications">Notifications</string>
+
+    <!-- Contacts -->
+    <string name="contacts_default_name">Default</string>
+    <string name="contact_avatar_mock">ContactAvatarMock</string>
+    <string name="contact_remove">ContactRemove</string>
 </resources>

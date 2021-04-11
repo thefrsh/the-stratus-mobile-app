@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="contact_name" type="id" />
+    <item name="contact_avatar" type="id" />
+    <item name="contact_remove" type="id" />
+    <item name="contacts_item_card_view" type="id" />
+    <item name="contact_remove_button" type="id" />
+</resources>
