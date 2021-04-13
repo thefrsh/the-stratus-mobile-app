@@ -84,9 +84,7 @@ class LoginViewModel @Inject constructor(
                     }
                     else {
 
-                        val apiError = Gson().fromJson(response.errorBody()?.string(),
-                                ApiError::class.java)
-
+                        val apiError = Gson().fromJson(response.errorBody()?.string(), ApiError::class.java)
                         snackbarEvents.onNext(SnackbarMessage(apiError.message))
                     }
                 }
